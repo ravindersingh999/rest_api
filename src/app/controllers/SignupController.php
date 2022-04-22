@@ -9,22 +9,23 @@ class SignupController extends Controller
     public function indexAction()
     {
         if($this->request->getPost('register')) {
-            $data = array();
+            $data = [];
             $data = array(
                 "name" => $this->request->getPost('name'),
                 "email" => $this->request->getPost('email'),
-                "password" => $this->request->getPost('password'),
-                "token" => $this->token($data['name'], $data['email'])
+                "password" => $this->request->getPost('password')
             );
             $this->mongo->users->insertOne($data);
+            $user = $this->mongo->users->findOne(['email'=>$data['email']]);
+            $id = strval($user->_id);
 
-            // $token = $this->token($data['name'], $data['email']);
-            // echo $token;
-            // die;
+            $token = $this->token($id);
+            echo $token;
+            die;
         }
     }
 
-    public function token($name, $email)
+    public function token($id)
     {
         $key = "example_key";
         $payload = array(
@@ -33,8 +34,7 @@ class SignupController extends Controller
             "iat" => 1356999524,
             "exp" => time() * 24 + 3600,
             "role" => "user",
-            "name" => $name,
-            "email" => $email
+            "id" => $id
         );
 
         $jwt = JWT::encode($payload, $key, 'HS256');

@@ -56,10 +56,18 @@ $app->get(
 );
 
 $app->get(
-    '/product/get/{per_page}/{page}',
+    '/api/product/get/{per_page}/{page}',
     [
         $product,
         'getProducts'
+    ]
+);
+
+$app->get(
+    '/api/product/list',
+    [
+        $product,
+        'productlist'
     ]
 );
 
@@ -84,6 +92,14 @@ $app->post(
     [
         $order,
         'placeorder'
+    ]
+);
+
+$app->put(
+    '/api/order/updateorder',
+    [
+        $order,
+        'updateorder'
     ]
 );
 
