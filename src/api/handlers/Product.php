@@ -1,9 +1,8 @@
 <?php
 
 namespace Api\Handlers;
+
 use Phalcon\Http\Response;
-
-
 use Phalcon\Di\Injectable;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;

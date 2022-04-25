@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <style>
+        label,
+        input {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h2>Signup</h2>
+        <form action="/signup/index" method="POST">
+            <label class="mt-2" for="name">Name :</label>
+            <input type="text" name="name" placeholder="name">
+
+            <label class="mt-2" for="email">Email :</label>
+            <input type="text" name="email" placeholder="email">
+
+            <label class="mt-2" for="password">Password :</label>
+            <input type="password" name="password" placeholder="password">
+
+            <input class="btn btn-outline btn-success mt-3" type="submit" name="register" value="Register">
+        </form>
+    </div>
+</body>
+
+</html>

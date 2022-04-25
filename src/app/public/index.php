@@ -15,6 +15,8 @@ $config = new Config([]);
 
 require_once('../vendor/autoload.php');
 
+$_SERVER["REQUEST_URI"] = str_replace("app/", "", $_SERVER["REQUEST_URI"]);
+
 // Define some absolute path constants to aid in locating resources
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH);
