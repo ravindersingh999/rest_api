@@ -5,13 +5,16 @@ use Phalcon\Loader;
 use Phalcon\Di\FactoryDefault;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Phalcon\Events\Manager as EventsManager;
+
 
 require_once "./vendor/autoload.php";
 
 $loader = new Loader();
 $loader->registerNamespaces(
     [
-        'Api\Handlers' => './handlers'
+        'Api\Handlers' => './handlers',
+        'MyEventsHandler' => './listeners'
     ]
 );
 
@@ -101,6 +104,18 @@ $app->put(
         $order,
         'updateorder'
     ]
+);
+
+$eventsmanager = new EventsManager();
+
+$eventsmanager->attach(
+    'myevent',
+    new \MyEventsHandler\NotificationsListeners()
+);
+
+$container->set(
+    'events',
+    $eventsmanager
 );
 
 $container->set(

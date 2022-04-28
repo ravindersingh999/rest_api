@@ -10,7 +10,8 @@ use Phalcon\Mvc\Application;
 use Phalcon\Url;
 use Phalcon\Db\Adapter\Pdo\Mysql;
 use Phalcon\Config;
-
+use Phalcon\Events\Event;
+use Phalcon\Events\Manager as EventsManager;
 $config = new Config([]);
 
 require_once('../vendor/autoload.php');
@@ -33,7 +34,8 @@ $loader->registerDirs(
 
 $loader->registerNamespaces(
     [
-        'App\Components' => APP_PATH . '/component'
+        'App\Components' => APP_PATH . '/component',
+        'Listeners'=>APP_PATH . '/listeners'
     ]
 );
 $loader->register();
@@ -56,6 +58,19 @@ $container->set(
         $url->setBaseUri('/');
         return $url;
     }
+);
+
+
+$eventManager = new EventsManager();
+
+$eventManager->attach(
+    'notifications',
+    new Listeners\NotificationsListeners()
+);
+
+$container->set(
+    'eventManager',
+    $eventManager
 );
 
 $application = new Application($container);

@@ -11,14 +11,24 @@ class LoginController extends Controller
                 "email" => $this->request->getPost('email'),
                 "password" => $this->request->getPost('password')
             );
-            $users = $this->mongo->users->findOne(["email" => $data['email'], "password" => $data['password']]);
+            // $users = $this->mongo->users->findOne(["email" => $data['email'], "password" => $data['password'], "role" => "user"]);
+            $admin = $this->mongo->users->findOne(["email" => $data['email'], "password" => $data['password'], "role" => "admin"]);
+
             if (empty($data['email']) || empty($data['password'])) {
                 $this->view->loginmsg = "Please fill all fields";
-            } elseif (!$users) {
-                $this->view->loginmsg = "User Does not exist";
-            } else {
-                $this->response->redirect('/app/orders/index');
             }
+            if ($admin) {
+                $this->response->redirect('/app/admin/index');
+            }
+            if (!$admin) {
+                $this->view->loginmsg = "Wrong Credentials";
+            }
+            // if ($users) {
+            //     $this->response->redirect('/frontend/products/index');
+            // }
+            // if (!$users) {
+            //     $this->view->loginmsg = "User does not exist";
+            // }
         }
     }
 }

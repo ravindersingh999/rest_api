@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+</head>
+<style>
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    table,
+    th,
+    td {
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 10px;
+    }
+
+    th {
+        background-color: #04AA6D;
+        color: white;
+    }
+
+</style>
+
+<body>
+    <div class="container-fluid">
+        <div class="">
+            <h2>Products</h2>
+            <table>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Product Price</th>
+                    <th>Product Stock</th>
+                </tr>
+                <tbody>
+                    <?php
+                    $html = "";
+                    foreach ($products as $v) {
+                        $html .= "<tr>
+                    <td>" . $v->name . "</td>
+                    <td>" . $v->price . "</td>
+                    <td>" . $v->stock . "</td>
+                    </tr>";
+                    }
+                    echo $html;
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
+        <a href="/app/admin/index">
+            <input type="submit" name="back" value="Go Back" class="btn btn-warning mt-3">
+        </a>
+    </div>
+</body>
+
+</html>

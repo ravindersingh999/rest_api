@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
 </head>
 <style>
     tr:nth-child(even) {
@@ -27,35 +29,59 @@
         background-color: #04AA6D;
         color: white;
     }
-    }
 </style>
 
 <body>
-    <div>
-        <h2>Orders</h2>
-        <table>
-            <tr>
-                <th>Customer Name</th>
-                <th>Product Name</th>
-                <th>Product Quantity</th>
-                <th>Order Status</th>
-            </tr>
-            <tbody>
-                <?php
-                $html = "";
-                foreach ($orders as $v) {
-                    $html .= "<tr>
-                    <td>" . $v->customer_name . "</td>
-                    <td>" . $v->product_name . "</td>
-                    <td>" . $v->product_quantity . "</td>
-                    <td>" . $v->status . "</td>
-                    </tr>";
-                }
-                echo $html;
-                ?>
-            </tbody>
-        </table>
+    <div class="container-fluid">
+        <div class="">
+            <h2>Orders</h2>
+            <table>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Product Name</th>
+                    <th>Product Quantity</th>
+                    <th>Order Status</th>
+                </tr>
+                <tbody>
+                    <?php
+                    $html = "";
+                    foreach ($orders as $v) { ?>
+                        <tr>
+                            <td> <?php echo  $v->customer_name ?></td>
+                            <td><?php echo  $v->product_name ?></td>
+                            <td><?php echo  $v->product_quantity ?></td>
+                            <td>
+                                <select name='status' data-id='<?php echo $v->_id ?>' class='status form-select'>
+                                    <option <?php if ($v->status == 'paid') echo "selected" ?> value='paid'>Paid</option>
+                                    <option <?php if ($v->status == 'dispatched') echo "selected" ?> value='dispatched'>dispatched</option>
+
+                                </select>
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
+        <a href="/app/admin/index">
+            <input type="submit" name="back" value="Go Back" class="btn btn-warning mt-3">
+        </a>
     </div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(".status").on("change", function() {
+        $.ajax({
+            url: "http://localhost:8080/app/orders/changestatus",
+            method: "POST",
+            data: {
+                "id": $(this).attr('data-id'),
+                "status": $(this).find(":selected").val()
+            }
+        });
+    });
+</script>
 
 </html>

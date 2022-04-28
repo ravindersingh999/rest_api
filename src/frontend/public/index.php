@@ -58,6 +58,15 @@ $container->set(
     }
 );
 
+$container->set(
+    'token',
+    function() {
+        $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZXhhbXBsZS5vcmciLCJhdWQiOiJodHRwOi8vZXhhbXBsZS5jb20iLCJpYXQiOjEzNTY5OTk1MjQsImV4cCI6Mzk2MjY4NDE2MDAsInJvbGUiOiJ1c2VyIiwiaWQiOiI2MjZhMTBhYTM2NDczNjM5ZmYwODllYTIifQ.EdVfmzXuqFr9ZNKwRLK-uzTzP6d_bnyB39tiAXm4GiM";
+
+        return $token;
+    }
+);
+
 $application = new Application($container);
 
 
@@ -92,7 +101,7 @@ $container->set(
         $mongo = new \MongoDB\Client("mongodb://mongo", array("username" => 'root', "password" => "password123"));
         // mongo "mongodb+srv://sandbox.g819z.mongodb.net/myFirstDatabase" --username root
 
-        return $mongo->store;
+        return $mongo->frontend;
     },
     true
 );

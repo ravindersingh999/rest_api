@@ -17,7 +17,7 @@ class LoginController extends Controller
             } elseif (!$users) {
                 $this->view->loginmsg = "User Does not exist";
             } else {
-                $this->response->redirect('orders/index');
+                $this->response->redirect('/frontend/products/index');
             }
         }
     }

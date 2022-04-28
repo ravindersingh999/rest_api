@@ -8,15 +8,17 @@ class SignupController extends Controller
 {
     public function indexAction()
     {
-        if($this->request->getPost('register')) {
+        if ($this->request->getPost('register')) {
             $data = [];
             $data = array(
                 "name" => $this->request->getPost('name'),
                 "email" => $this->request->getPost('email'),
-                "password" => $this->request->getPost('password')
+                "password" => $this->request->getPost('password'),
+                "role" => "user"
             );
             $this->mongo->users->insertOne($data);
-            $user = $this->mongo->users->findOne(['email'=>$data['email']]);
+
+            $user = $this->mongo->users->findOne(['email' => $data['email']]);
             $id = strval($user->_id);
 
             $token = $this->token($id);
